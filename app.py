@@ -1,32 +1,29 @@
 import streamlit as st
 import pickle
 
-# Load PolynomialFeatures
+# Load transformer
 with open("poly.pkl", "rb") as f:
     poly = pickle.load(f)
 
-# Load trained model
+# Load model
 with open("model.pkl", "rb") as f:
     model = pickle.load(f)
 
-# UI
-st.set_page_config(page_title="Salary Prediction", page_icon="💰")
+st.set_page_config(page_title="Ice Cream Sales Prediction", page_icon="🍦")
 
-st.title("💰 Salary Prediction App")
-st.write("Enter the employee level to predict the salary.")
+st.title("🍦 Ice Cream Sales Prediction")
+st.write("Enter the temperature to predict ice cream sales.")
 
-# Input
-level = st.number_input(
-    "Employee Level",
-    min_value=1.0,
-    max_value=10.0,
-    value=5.0,
+temperature = st.number_input(
+    "Temperature (°C)",
+    min_value=-10.0,
+    max_value=50.0,
+    value=25.0,
     step=0.1
 )
 
-# Button
-if st.button("Predict Salary"):
-    level_poly = poly.transform([[level]])
-    prediction = model.predict(level_poly)
+if st.button("Predict Sales"):
+    temp_poly = poly.transform([[temperature]])
+    prediction = model.predict(temp_poly)
 
-    st.success(f"Predicted Salary: ₹ {prediction[0]:,.2f}")
+    st.success(f"🍦 Predicted Ice Cream Sales: {prediction[0]:.2f} units")
