@@ -29,7 +29,7 @@ level = st.number_input(
     value=6.5,
     step=0.1
 )
-
+st.write(model.predict(poly.transform([[5]])))
 # Prediction
 if st.button("Predict Salary"):
 
